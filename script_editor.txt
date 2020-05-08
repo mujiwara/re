@@ -1,0 +1,34 @@
+Script below is an automated way to start attacks at one or more nodes with a 20 sec interval between each attack starts.
+After starts simulation you run script and this will control specific nodes actions (right click that can be done manually).
+All timers may be adjusted as loop in 300000 ms means is expected all attackers are mute and back alive after 5 minutes. That may not be true if you increase the number of simultaneous attackers or change other timers.
+
+##############################
+
+TIMEOUT(36000000, log.log("\n" + "last msg: " + msg + "\n"));
+
+while (true) {
+
+sim = mote.getSimulation();
+
+m = sim.getMote(1);
+log.log("Clicking mote: " + m + "\n");
+m.getInterfaces().getButton().clickButton();
+
+GENERATE_MSG(20000, "continue1");
+YIELD_THEN_WAIT_UNTIL(msg.equals("continue1"));
+
+m = sim.getMote(2);
+log.log("Clicking mote: " + m + "\n");
+m.getInterfaces().getButton().clickButton();
+
+GENERATE_MSG(20000, "continue2");
+YIELD_THEN_WAIT_UNTIL(msg.equals("continue2"));
+
+m = sim.getMote(3);
+log.log("Clicking mote: " + m + "\n");
+m.getInterfaces().getButton().clickButton();
+
+GENERATE_MSG(300000, "loop");
+YIELD_THEN_WAIT_UNTIL(msg.equals("loop"));
+
+}
